@@ -1,0 +1,84 @@
+ALKIM CEVIK - CISC 3110 SPRING 2014 ( PROF. LOWENTHAL)
+HOMEWORK #5 OUTPUT
+
+*** Welcome to the Banking System ***
+
+(W) Withdraw Money
+(D) Deposit Money
+(N) New Bank Account
+(B) Balance
+(I) Account Info
+(C) Close Account
+(Q) Quit
+Your choice: n
+Enter the accountID: 112233
+Enter the social security number: 123456
+Enter the first name: alkim
+Enter the last name: cevik
+Enter account type credit
+Enter the starting balance: 1000
+*** Welcome to the Banking System ***
+
+(W) Withdraw Money
+(D) Deposit Money
+(N) New Bank Account
+(B) Balance
+(I) Account Info
+(C) Close Account
+(Q) Quit
+Your choice: d
+Enter the accountID: 112233
+Enter amount to deposit:450
+*** Welcome to the Banking System ***
+
+(W) Withdraw Money
+(D) Deposit Money
+(N) New Bank Account
+(B) Balance
+(I) Account Info
+(C) Close Account
+(Q) Quit
+Your choice: w
+Enter the accountID: 112233
+Enter amount to withdraw:345
+*** Welcome to the Banking System ***
+
+(W) Withdraw Money
+(D) Deposit Money
+(N) New Bank Account
+(B) Balance
+(I) Account Info
+(C) Close Account
+(Q) Quit
+Your choice: b
+Enter the accountID: 112233
+Balance is: 1105
+*** Welcome to the Banking System ***
+
+(W) Withdraw Money
+(D) Deposit Money
+(N) New Bank Account
+(B) Balance
+(I) Account Info
+(C) Close Account
+(Q) Quit
+Your choice: i
+Enter the accountID: 112233
+Account info: AccountID: 112233
+Social Security Number: 123456
+First name: alkim
+Last name: cevik
+Balance: 1105.00
+
+*** Welcome to the Banking System ***
+
+(W) Withdraw Money
+(D) Deposit Money
+(N) New Bank Account
+(B) Balance
+(I) Account Info
+(C) Close Account
+(Q) Quit
+Your choice: c
+Enter the accountID: 112233
+*** Welcome to the Banking System ***

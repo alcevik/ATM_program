@@ -1,0 +1,322 @@
+/* ALKIM CEVIK - CISC 3110 SPRING 2014 ( PROF. LOWENTHAL)
+ * HOMEWORK #5 WITH EXTRA CREDIT
+ * This program performs various banking transactions
+ * using classes/structures
+ */
+#include <iostream>
+#include <iomanip>
+#include <string>
+using namespace std;
+class Name
+{
+public:
+    string firstName;
+    string lastName;
+    Name(const string fn,const string ln)
+    {
+        firstName = fn;
+        lastName = ln;
+    }
+};
+class Depositor
+{
+public:
+	Name name;
+	string ssn;
+	Depositor(const string fn,const string ln,const string ssn):name(fn,ln)
+	{
+		
+		this->ssn = ssn;
+	}
+};
+class BankAccount
+{
+public:
+	int accountID;	//account ID
+	Depositor depositor;
+	string accountType;
+	float balance;		//balance
+    
+	/**
+	 * Default Constructor
+	 */
+	BankAccount();
+	/**
+	 * Constructor
+	 * @param accountID account ID
+	 * @param passCode pass code
+	 * @param firstName first name
+	 * @param lastName last name
+     * @param balance balance
+	 */
+	BankAccount(const int accountID,const string ssn,const string lastName,const string firstName,const string accType,const float balance);
+	//Getters and setters
+	
+	/**
+	 * @return string presentation of account
+	 */
+	string toString() const;
+};
+BankAccount::BankAccount():depositor("","","")
+{
+    this->accountID=0;
+	
+    
+	
+	this->accountType = "";
+	this->balance=0;
+}
+BankAccount::BankAccount(const int accountID,const string ssn,const string lastName,const string firstName,const string accType,const float balance):depositor(firstName,lastName,ssn)
+{
+	this->accountID=accountID;
+	
+	this->accountType = accType;
+	this->balance=balance;
+}
+
+string BankAccount::toString() const
+{
+	string ret="";
+	char buff[255];
+	sprintf(buff,"AccountID: %d",accountID);
+	ret+=buff;
+	ret+="\n";
+	ret+="Social Security Number: "+depositor.ssn+"\n";
+	ret+="First name: "+depositor.name.firstName+"\n";
+	ret+="Last name: "+depositor.name.lastName+"\n";
+	
+	sprintf(buff,"Balance: %.2f",balance);
+	ret+=string("")+buff+"\n";
+	return ret;
+}
+int read_accts(BankAccount account[],int max_accts);
+void menu();
+int findacct(const BankAccount account[],int num_accts,int requested_account);
+void withdraw(BankAccount account[],int num_accts);
+void deposit(BankAccount account[],int num_accts);
+int new_acct(BankAccount account[],int num_accts);
+int close_acct(BankAccount account[],int num_accts);
+void balance(const BankAccount account[],int num_accts);
+void account_info(const BankAccount account[],int num_accts);
+void print_accts(const BankAccount account[],int num_accts);
+
+int read_accts(BankAccount account[],int max_accts)
+{
+    return 0;
+}
+void menu()
+{
+    cout<<"*** Welcome to the Banking System ***"<<endl<<endl;
+    cout<<"(W) Withdraw Money"<<endl;
+    cout<<"(D) Deposit Money"<<endl;
+    cout<<"(N) New Bank Account"<<endl;
+    cout<<"(B) Balance"<<endl;
+    cout<<"(I) Account Info"<<endl;
+    cout<<"(C) Close Account"<<endl;
+    cout<<"(Q) Quit"<<endl;
+    cout<<"Your choice: ";
+}
+int findacct(const BankAccount account[],int num_accts,int requested_account)
+{
+	for(int i =0;i<num_accts;i++)
+	{
+		if(account[i].accountID==requested_account)
+			return i;
+	}
+	return -1;
+}
+void withdraw(BankAccount account[],int num_accts)
+{
+	cout<<"Enter the accountID: ";
+	int accountID;
+	cin>>accountID;
+	int index = findacct(account,num_accts,accountID);
+	if(index==-1)
+	{
+        cout<<"Account not found!"<<endl;
+        return ;
+	}
+	else
+	{
+		cout<<"Enter amount to withdraw:";
+		float amount;
+		cin>>amount;
+		account[index].balance = account[index].balance - amount;
+        return ;
+	}
+}
+void deposit(BankAccount account[],int num_accts)
+{
+	cout<<"Enter the accountID: ";
+	int accountID;
+	cin>>accountID;
+	int index = findacct(account,num_accts,accountID);
+	if(index==-1)
+	{
+        cout<<"Account not found!"<<endl;
+	}
+	else
+	{
+		cout<<"Enter amount to deposit:";
+		float amount;
+		cin>>amount;
+		account[index].balance = account[index].balance+ amount;
+        return ;
+	}
+}
+int new_acct(BankAccount account[],int num_accts)
+{
+	cout<<"Enter the accountID: ";
+	int accountID;
+	cin>>accountID;
+	cout<<"Enter the social security number: ";
+	string ssn;
+	cin>>ssn;
+	cout<<"Enter the first name: ";
+	string firstName;
+	cin>>firstName;
+	cout<<"Enter the last name: ";
+	string lastName;
+	cin>>lastName;
+	cout<<"Enter account type ";
+	string type;
+	cin>>type;
+	cout<<"Enter the starting balance: ";
+	float balance;
+	cin>>balance;
+	BankAccount acc(accountID,ssn,lastName,firstName,type,balance);
+	account[num_accts] = acc;
+	return num_accts+1;
+	
+}
+int close_acct(BankAccount account[],int num_accts)
+{
+	cout<<"Enter the accountID: ";
+	int accountID;
+	cin>>accountID;
+    int index = findacct(account,num_accts,accountID);
+	if(index == -1)
+	{
+        return num_accts;
+	}
+	else
+	{
+        for(int j = index;j<num_accts-1;j++)
+        {
+            account[j] = account[j+1];
+        }
+        return num_accts-1;
+	}
+}
+void balance(const BankAccount account[],int num_accts)
+{
+	cout<<"Enter the accountID: ";
+	int accountID;
+	cin>>accountID;
+	int index = findacct(account,num_accts,accountID);
+	if(index==-1)
+	{
+        cout<<"Account not found!"<<endl;
+	}
+	else
+	{
+		cout<<"Balance is: "<<account[index].balance<<endl;
+	}
+}
+void account_info(const BankAccount account[],int num_accts)
+{
+	cout<<"Enter the accountID: ";
+	int accountID;
+	cin>>accountID;
+	int index = findacct(account,num_accts,accountID);
+	if(index==-1)
+	{
+        cout<<"Account not found!"<<endl;
+	}
+	else
+	{
+		cout<<"Account info: "<<account[index].toString()<<endl;
+	}
+}
+void print_accts(const BankAccount account[],int num_accts)
+{
+	for(int i =0;i<num_accts;i++)
+	{
+		BankAccount acc = account[i];
+		cout<<setw(10)<<acc.accountID<<setw(10)<<acc.depositor.name.firstName<<setw(10)<<acc.depositor.name.lastName<<setw(10)<<acc.accountType<<setw(10)<<acc.depositor.ssn<<setw(10)<<acc.balance<<endl;
+	}
+}
+
+
+
+
+int main(int argc, const char * argv[])
+{
+    
+    string str;
+    BankAccount account[100];
+    int num_accts = 0;
+	while(true)
+	{
+		
+		menu();
+        cin>>str;
+		char choice=str.at(0);
+		switch(choice)
+		{
+			case 'w':
+            case 'W':
+			{
+				withdraw( account,  num_accts);
+                break;
+			}
+			case 'd':
+            case 'D':
+			{
+				deposit( account,  num_accts);
+                
+				break;
+			}
+			case 'n':
+            case 'N':
+			{
+				num_accts = new_acct(account,  num_accts);
+				break;
+			}
+			case 'b':
+            case 'B':
+			{
+				balance(account,  num_accts);
+				break;
+			}
+			case 'i':
+            case 'I':
+			{
+				account_info(account,  num_accts);
+				break;
+			}
+			case 'c':
+            case 'C':
+			{
+				num_accts = close_acct(account,  num_accts);
+				break;
+			}
+			case 'q':
+            case 'Q':
+			{
+				print_accts(account,  num_accts);
+				getchar();
+				return 0;
+				
+			}
+            default:
+				cout<<"invalid selection, enter again"<<endl;
+                break;
+                
+		}
+		
+	}
+	
+    return 0;
+}
+
